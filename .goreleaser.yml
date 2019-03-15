@@ -12,6 +12,11 @@ builds:
     - CGO_ENABLED=0
   goarch:
     - amd64
+  
+  # Custom ldflags templates.
+  # Default is `-s -w -X main.version={{.Version}} -X main.commit={{.ShortCommit}} -X main.date={{.Date}}`.
+  ldflags:
+    - -s -w -X github.com/hyperonecom/docker-machine-driver-hyperone/driver.version={{.Version}}
 
 archive:
   format: zip
