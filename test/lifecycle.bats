@@ -35,11 +35,11 @@ teardown() {
     h1 vm list --project-select=${HYPERONE_PROJECT} --output=tsv \
         | grep machinebats \
         | awk '{print $1}' \
-        | xargs -r -n1 h1 vm delete --project-select=${HYPERONE_PROJECT} --yes --vm
+        | xargs -r -n 1 h1 vm delete --project-select=${HYPERONE_PROJECT} --yes --vm
     h1 disk list --project-select=${HYPERONE_PROJECT} --output=tsv \
         | grep machinebats \
         | awk '{print $1}' \
-        | xargs -r -n1 h1 disk delete --project-select=${HYPERONE_PROJECT} --yes --disk
+        | xargs -r -n 1 h1 disk delete --project-select=${HYPERONE_PROJECT} --yes --disk
     docker-machine rm -y $(docker-machine ls -q | grep 'machinebats')
 }
 
@@ -54,7 +54,7 @@ teardown() {
 
 @test "hyperone: docker-machine env" {
     run docker-machine create --driver hyperone ${USER_VARS} machinebats-env
-    run eval $(docker-machine env test-123 --shell sh)
+    run eval $(docker-machine env machinebats-env --shell sh)
 		run docker info
 		[ "$(hyperone_vm_has_ip "machinebats-env" $(docker-machine ip machinebats-env))" -eq 1 ]
 }
