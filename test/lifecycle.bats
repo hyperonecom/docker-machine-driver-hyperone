@@ -23,7 +23,7 @@ hyperone_has_machine() {
 }
 
 hyperone_vm_has_ip() {
-    h1 $1 nic list --project-select=${HYPERONE_PROJECT} --output=tsv | grep "$2" -c
+    h1 vm nic list --project-select=${HYPERONE_PROJECT} --output=tsv --vm "$1" | grep "$2" -c
 }
 
 machine_status () {
@@ -40,7 +40,7 @@ teardown() {
         | grep machinebats \
         | awk '{print $1}' \
         | xargs -r -n 1 h1 disk delete --project-select=${HYPERONE_PROJECT} --yes --disk
-    docker-machine rm -y $(docker-machine ls -q | grep 'machinebats')
+    docker-machine ls -q | grep 'machinebats' | xargs -r docker-machine rm -y
 }
 
 @test "hyperone: create" {
@@ -61,6 +61,7 @@ teardown() {
 
 @test "hyperone: docker-machine ip" {
     run docker-machine create --driver hyperone ${USER_VARS} machinebats-env
+    run docker-machine ip machinebats-env
 		[ "$(hyperone_vm_has_ip "machinebats-env" $(docker-machine ip machinebats-env))" -eq 1 ]
 }
 
