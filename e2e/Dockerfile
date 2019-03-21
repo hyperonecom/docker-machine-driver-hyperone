@@ -1,15 +1,12 @@
 FROM golang:alpine
 ENV H1_CLI_VERSION="v1.4.0"
+ENV MACHINE_VERSION="v0.16.1"
 
 # Setup
 RUN apk add curl bats git make gcc musl-dev findutils grep docker
-RUN curl -s https://api.github.com/repos/docker/machine/releases/latest | \
-		grep "browser_download_url.*Linux-$(uname -m)" | \
-		cut -d : -f 2,3 | \
-		tr -d '"' | \
-		head -n 1 | \
-		xargs curl -L >/tmp/docker-machine \
-&&  install /tmp/docker-machine /usr/local/bin/docker-machine
+RUN base="https://github.com/docker/machine/releases/download/${MACHINE_VERSION}" \
+&& curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/usr/local/bin/docker-machine \
+&& chmod +x /usr/local/bin/docker-machine
 RUN curl -s -L "https://github.com/hyperonecom/h1-cli/releases/download/${H1_CLI_VERSION}/h1-alpine" -o /bin/h1 \
 && chmod +x /bin/h1
 # Build
