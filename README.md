@@ -1,5 +1,7 @@
 # docker-machine-driver-hyperone
 
+[![Build Status](https://travis-ci.com/hyperonecom/docker-machine-driver-hyperone.svg?branch=master)](https://travis-ci.com/hyperonecom/docker-machine-driver-hyperone)
+
 A Docker Machine driver for [HyperOne](http://www.hyperone.com/). It can be used provision multiple remote Docker hosts on *Virtual Machine*.
 
 ## Requirements

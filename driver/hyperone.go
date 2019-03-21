@@ -14,6 +14,8 @@ import (
 	openapi "github.com/hyperonecom/h1-client-go"
 )
 
+var version = "devel"
+
 const (
 	defaultSSHUser  = "guru"
 	defaultImage    = "debian"
@@ -237,6 +239,8 @@ func (d *Driver) getClient() *openapi.APIClient {
 	cfg.AddDefaultHeader("x-project", d.Project)
 	cfg.AddDefaultHeader("authorization", "Bearer "+d.Token)
 	cfg.AddDefaultHeader("Prefer", "respond-async,wait=3600")
+
+	cfg.UserAgent = fmt.Sprintf("docker-machine-driver-%s/%s", d.DriverName(), version)
 
 	return openapi.NewAPIClient(cfg)
 }
