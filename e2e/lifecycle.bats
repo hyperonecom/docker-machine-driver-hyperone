@@ -11,6 +11,7 @@ command -v h1 >/dev/null 2>&1 || {
     exit 1
 }
 
+USER_VARS="--hyperone-disk-name machinebats"
 USER_VARS="${USER_VARS} --hyperone-token ${HYPERONE_TOKEN}"
 USER_VARS="${USER_VARS} --hyperone-project ${HYPERONE_PROJECT}"
 
