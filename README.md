@@ -10,13 +10,13 @@ A Docker Machine driver for [HyperOne](http://www.hyperone.com/). It can be used
 
 ## Installation
 
-### via Go tools
+### Go tools
 ```shell
 # install latest (git) version of docker-machine-driver-hyperone in your $GOPATH/bin (depends on Golang and docker-machine)
 $ go get -u github.com/hyperonecom/docker-machine-driver-hyperone
 ```
 
-### via pre-compiled binaries
+### pre-compiled binaries
 
 You can find sources and pre-compiled binaries on the "[Releases](https://github.com/hyperonecom/docker-machine-driver-hyperone/releases/latest)" page.
 
@@ -27,7 +27,7 @@ $ wget https://github.com/hyperonecom/docker-machine-driver-hyperone/releases/do
 $ unzip docker-machine-driver-hyperone_0.0.1_darwin_amd64.zip
 ```
 
-Make it executable and copy the binary in a directory accessible with your $PATH:
+Make it executable and copy the binary in a directory accessible on your ```$PATH```:
 
 ```shell
 $ chmod +x docker-machine-driver-hyperone
@@ -70,7 +70,7 @@ Description:
    Run 'docker-machine create --driver name --help' to include the create flags for that driver in the help text.
 
 Options:
-   
+
    --driver, -d "virtualbox"										Driver to create machine with. [$MACHINE_DRIVER]
    --engine-env [--engine-env option --engine-env option]						Specify environment variables to set in the engine
    --engine-insecure-registry [--engine-insecure-registry option --engine-insecure-registry option]	Specify insecure registries to allow with the created engine
@@ -105,6 +105,13 @@ Options:
 ### Build from source
 
 If you wish to work on this driver, you will first need Go installed. Make sure Go is properly installed, including setting up a [GOPATH](https://golang.org/doc/code.html#GOPATH).
+
+Clone the repository:
+
+```shell
+$ git clone git@github.com:hyperonecom/docker-machine-driver-hyperone.git
+$ cd docker-machine-driver-hyperone
+```
 
 Run these commands in root of repository to build the plugin binary:
 
