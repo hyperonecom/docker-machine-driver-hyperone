@@ -1,5 +1,7 @@
 # docker-machine-driver-hyperone
 
+[![Build Status](https://travis-ci.com/hyperonecom/docker-machine-driver-hyperone.svg?branch=master)](https://travis-ci.com/hyperonecom/docker-machine-driver-hyperone)
+
 HyperOne Driver Plugin for docker-machine.
 
 ## Setup
