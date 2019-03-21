@@ -1,32 +1,65 @@
 # docker-machine-driver-hyperone
 
-HyperOne Driver Plugin for docker-machine.
+A Docker Machine driver for [HyperOne](http://www.hyperone.com/). It can be used provision multiple remote Docker hosts on *Virtual Machine*.
 
-## Setup
+## Requirements
 
-### Go
+* [Docker Machine](https://docs.docker.com/machine/install-machine)
+* [Go tools](https://golang.org/doc/install) (only for installation from sources)
+* HyperOne account & access to *Project*
+
+## Installation
+
+### via Go tools
 ```shell
 # install latest (git) version of docker-machine-driver-hyperone in your $GOPATH/bin (depends on Golang and docker-machine)
 $ go get -u github.com/hyperonecom/docker-machine-driver-hyperone
 ```
 
-### Binary
+### via pre-compiled binaries
 
-You can find sources and pre-compiled binaries [here](https://github.com/hyperonecom/docker-machine-driver-hyperone/releases/latest)
+You can find sources and pre-compiled binaries on the "[Releases](https://github.com/hyperonecom/docker-machine-driver-hyperone/releases/latest)" page.
+
+Download the binary (this example downloads the binary for darwin amd64):
 
 ```shell
-# Download the binary (this example downloads the binary for darwin amd64)
 $ wget https://github.com/hyperonecom/docker-machine-driver-hyperone/releases/download/v0.0.1/docker-machine-driver-hyperone_0.0.1_darwin_amd64.zip
-$ unzip unzip docker-machine-driver-hyperone_0.0.1_darwin_amd64.zip
+$ unzip docker-machine-driver-hyperone_0.0.1_darwin_amd64.zip
+```
 
-# Make it executable and copy the binary in a directory accessible with your $PATH
+Make it executable and copy the binary in a directory accessible with your $PATH:
+
+```shell
 $ chmod +x docker-machine-driver-hyperone
 $ sudo cp docker-machine-driver-hyperone /usr/local/bin/
 ```
 
 # Usage
 
-### 1. driver helper
+Official documentation for Docker Machine is available on [website](https://docs.docker.com/machine/).
+
+To create a HyperOne Virtual Machine for Docker purposes just run this command:
+
+```shell
+$ docker-machine create --driver hyperone --hyperone-token TOKEN --hyperone-project PROJECT vm
+Running pre-create checks...
+Creating machine...
+(vm) Creating HyperOne VM...
+Waiting for machine to be running, this may take a few minutes...
+Detecting operating system of created instance...
+Waiting for SSH to be available...
+Detecting the provisioner...
+Provisioning with debian...
+Copying certs to the local machine directory...
+Copying certs to the remote machine...
+Setting Docker configuration on the remote daemon...
+Checking connection to Docker...
+Docker is up and running!
+To see how to connect your Docker Client to the Docker Engine running on this virtual machine, run: docker-machine env vm
+```
+
+Available options:
+
 ```shell
 $ docker-machine create -d hyperone -h
 Usage: docker-machine create [OPTIONS] [arg...]
@@ -67,22 +100,20 @@ Options:
    --tls-san [--tls-san option --tls-san option]							Support extra SANs for TLS certs
 ```
 
-### 2. Create your machine
+## Development
+
+### Build from source
+
+If you wish to work on this driver, you will first need Go installed. Make sure Go is properly installed, including setting up a [GOPATH](https://golang.org/doc/code.html#GOPATH).
+
+Run these commands in root of repository to build the plugin binary:
 
 ```shell
-$ docker-machine create --driver hyperone --hyperone-token TOKEN --hyperone-project PROJECT vm
-Running pre-create checks...
-Creating machine...
-(vm) Creating HyperOne VM...
-Waiting for machine to be running, this may take a few minutes...
-Detecting operating system of created instance...
-Waiting for SSH to be available...
-Detecting the provisioner...
-Provisioning with debian...
-Copying certs to the local machine directory...
-Copying certs to the remote machine...
-Setting Docker configuration on the remote daemon...
-Checking connection to Docker...
-Docker is up and running!
-To see how to connect your Docker Client to the Docker Engine running on this virtual machine, run: docker-machine env vm
+$ go build
 ```
+
+After the build is complete, ```docker-machine-driver-hyperone``` binary will be created. Put it in the ```PATH```.
+
+### Running tests
+
+For details how to run tests read the contents of the ```.travis.yml``` file.
