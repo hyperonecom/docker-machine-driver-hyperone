@@ -1,0 +1,21 @@
+language: golang
+
+services:
+  - docker
+
+stages:
+  - name: build
+    if: type != push
+  - name: test
+    if: type = push or type = cron
+
+jobs:
+  include:
+    - stage: build
+      script:
+      - docker build . -f e2e/Dockerfile -t machine-e2e
+
+    - stage: build & test
+      script:
+      - docker build . -f e2e/Dockerfile -t machine-e2e
+      - docker run -e HYPERONE_PROJECT="any" -e HYPERONE_TOKEN="$H1_TOKEN" -e H1_TOKEN="$H1_TOKEN" machine-e2e bats e2e/lifecycle.bats
