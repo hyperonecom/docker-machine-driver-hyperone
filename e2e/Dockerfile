@@ -1,5 +1,5 @@
 FROM golang:alpine
-ENV H1_CLI_VERSION="v1.4.0"
+ENV H1_CLI_VERSION="v1.5.0"
 ENV MACHINE_VERSION="v0.16.1"
 
 # Setup
