@@ -180,13 +180,7 @@ func (d *Driver) Create() error {
 	}
 
 	d.VMID = vm.Id
-
-	netadps, _, err := client.VmApi.VmListNetadp(context.TODO(), d.VMID)
-	if err != nil {
-		return err
-	}
-
-	d.IPAddress = netadps[0].Ip[0].Address
+	d.IPAddress = vm.Fqdn
 
 	return nil
 }
