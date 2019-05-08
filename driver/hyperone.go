@@ -33,6 +33,7 @@ type Driver struct {
 	Image    string
 	VMID     string
 	Type     string
+	DiskID   string
 	DiskName string
 	DiskType string
 	DiskSize int
@@ -179,8 +180,14 @@ func (d *Driver) Create() error {
 		return err
 	}
 
+	hdds, _, err := client.VmApi.VmListHdd(context.TODO(), vm.Id)
+	if err != nil {
+		return err
+	}
+
 	d.VMID = vm.Id
 	d.IPAddress = vm.Fqdn
+	d.DiskID = hdds[0].Disk.Id
 
 	return nil
 }
@@ -207,7 +214,7 @@ func (d *Driver) Kill() error {
 
 func (d *Driver) Remove() error {
 	options := openapi.VmDelete{
-		RemoveDisks: []string{},
+		RemoveDisks: []string{d.DiskID},
 	}
 
 	if resp, err := d.getClient().VmApi.VmDelete(context.TODO(), d.VMID, options); err != nil {
