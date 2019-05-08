@@ -11,7 +11,7 @@ command -v h1 >/dev/null 2>&1 || {
     exit 1
 }
 
-USER_VARS="--hyperone-disk-name machinebats"
+USER_VARS="--hyperone-disk-name machinebats-os-disk"
 USER_VARS="${USER_VARS} --hyperone-token ${HYPERONE_TOKEN}"
 USER_VARS="${USER_VARS} --hyperone-project ${HYPERONE_PROJECT}"
 
@@ -28,7 +28,7 @@ hyperone_vm_has_ip() {
 }
 
 machine_status () {
-		docker-machine status "$1" | grep "$2" -c
+    docker-machine status "$1" | grep "$2" -c
 }
 
 
@@ -54,16 +54,16 @@ teardown() {
 }
 
 @test "hyperone: docker-machine env" {
-    run docker-machine create --driver hyperone ${USER_VARS} machinebats-env
-    run eval $(docker-machine env machinebats-env --shell sh)
-		run docker info
-		[ "$(hyperone_vm_has_ip "machinebats-env" $(docker-machine ip machinebats-env))" -eq 1 ]
+    docker-machine create --driver hyperone ${USER_VARS} machinebats-env
+    eval $(docker-machine env machinebats-env --shell sh)
+    docker info
+    [ "$(hyperone_vm_has_fqdn "machinebats-env" $(docker-machine ip machinebats-env))" -eq 1 ]
 }
 
 @test "hyperone: docker-machine ip" {
     run docker-machine create --driver hyperone ${USER_VARS} machinebats-env
     run docker-machine ip machinebats-env
-		[ "$(hyperone_vm_has_ip "machinebats-env" $(docker-machine ip machinebats-env))" -eq 1 ]
+    [ "$(hyperone_vm_has_ip "machinebats-env" $(docker-machine ip machinebats-env))" -eq 1 ]
 }
 
 @test "hyperone: docker-machine stop" {
@@ -80,9 +80,11 @@ teardown() {
 }
 
 @test "hyperone: docker-machine rm" {
-    run docker-machine create --driver hyperone ${USER_VARS} machinebats-rm
+    docker-machine create --driver hyperone ${USER_VARS} machinebats-rm
+    [ "$(hyperone_has_resource "disk" "os-disk")" -eq 1 ]
     run docker-machine rm -y machinebats-rm
     [ "$(hyperone_has_resource "vm" "rm")" -eq 0 ]
+    [ "$(hyperone_has_resource "disk" "os-disk")" -eq 0 ]
     [ "$(docker-machine ls | grep machinebats-rm -c)" -eq 0 ]
 }
 
