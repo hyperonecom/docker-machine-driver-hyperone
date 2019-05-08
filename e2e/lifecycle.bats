@@ -23,8 +23,8 @@ hyperone_has_machine() {
     docker-machine ls | grep "machinebats" | grep "$2" -c
 }
 
-hyperone_vm_has_ip() {
-    h1 vm nic list --project-select=${HYPERONE_PROJECT} --output=tsv --vm "$1" | grep "$2" -c
+hyperone_vm_has_fqdn() {
+    h1 vm show --project-select=${HYPERONE_PROJECT} --output=tsv --query '[].{fqdn:fqdn}' --vm "$1" | grep "$2" -c
 }
 
 machine_status () {
@@ -61,21 +61,24 @@ teardown() {
 }
 
 @test "hyperone: docker-machine ip" {
-    run docker-machine create --driver hyperone ${USER_VARS} machinebats-env
+    docker-machine create --driver hyperone ${USER_VARS} machinebats-env
     run docker-machine ip machinebats-env
-    [ "$(hyperone_vm_has_ip "machinebats-env" $(docker-machine ip machinebats-env))" -eq 1 ]
+    [ "$status" -eq 0 ]
+    [ "$(hyperone_vm_has_fqdn "machinebats-env" $(docker-machine ip machinebats-env))" -eq 1 ]
 }
 
 @test "hyperone: docker-machine stop" {
-    run docker-machine create --driver hyperone ${USER_VARS} machinebats-stop
+    docker-machine create --driver hyperone ${USER_VARS} machinebats-stop
     run docker-machine stop machinebats-stop
+    [ "$status" -eq 0 ]
     [ "$(hyperone_has_resource "vm" "stop")" -eq 1 ]
     [ "$(machine_status machinebats-stop Stopped)" -eq 1 ]
 }
 
 @test "hyperone: docker-machine restart" {
-    run docker-machine create --driver hyperone ${USER_VARS} machinebats-restart
+    docker-machine create --driver hyperone ${USER_VARS} machinebats-restart
     run docker-machine restart machinebats-restart
+    [ "$status" -eq 0 ]
     [ "$(machine_status machinebats-restart Running)" -eq 1 ]
 }
 
@@ -83,15 +86,17 @@ teardown() {
     docker-machine create --driver hyperone ${USER_VARS} machinebats-rm
     [ "$(hyperone_has_resource "disk" "os-disk")" -eq 1 ]
     run docker-machine rm -y machinebats-rm
+    [ "$status" -eq 0 ]
     [ "$(hyperone_has_resource "vm" "rm")" -eq 0 ]
     [ "$(hyperone_has_resource "disk" "os-disk")" -eq 0 ]
     [ "$(docker-machine ls | grep machinebats-rm -c)" -eq 0 ]
 }
 
 @test "hyperone: docker-machine kill" {
-    run docker-machine create --driver hyperone ${USER_VARS} machinebats-kill
+    docker-machine create --driver hyperone ${USER_VARS} machinebats-kill
     [ "$(hyperone_has_resource "vm" "kill")" -eq 1 ]
     run docker-machine kill machinebats-kill
+    [ "$status" -eq 0 ]
     [ "$(hyperone_has_resource "vm" "kill")" -eq 1 ]
     [ "$(machine_status machinebats-kill Stopped)" -eq 1 ]
 }
