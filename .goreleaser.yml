@@ -18,8 +18,8 @@ builds:
   ldflags:
     - -s -w -X github.com/hyperonecom/docker-machine-driver-hyperone/driver.version={{.Version}}
 
-archive:
-  format: zip
+archives:
+  - format: zip
 checksum:
   name_template: 'checksums.txt'
 snapshot:
