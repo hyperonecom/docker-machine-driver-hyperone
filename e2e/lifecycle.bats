@@ -4,7 +4,7 @@
 # delete any VM and disk with the text "machinebats" within the name.
 
 # Required parameters
-: ${HYPERONE_TOKEN:?}
+: ${HYPERONE_ACCESS_TOKEN_SECRET:?}
 : ${HYPERONE_PROJECT:?}
 command -v h1 >/dev/null 2>&1 || {
     echo "'h1' must be installed" >&2
@@ -12,7 +12,7 @@ command -v h1 >/dev/null 2>&1 || {
 }
 
 USER_VARS="--hyperone-disk-name machinebats-os-disk"
-USER_VARS="${USER_VARS} --hyperone-token ${HYPERONE_TOKEN}"
+USER_VARS="${USER_VARS} --hyperone-access-token-secret ${HYPERONE_ACCESS_TOKEN_SECRET}"
 USER_VARS="${USER_VARS} --hyperone-project ${HYPERONE_PROJECT}"
 
 hyperone_has_resource() {

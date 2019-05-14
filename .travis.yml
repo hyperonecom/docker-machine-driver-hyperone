@@ -18,4 +18,6 @@ jobs:
     - stage: build & test
       script:
       - docker build . -f e2e/Dockerfile -t machine-e2e
-      - docker run -e HYPERONE_PROJECT="any" -e HYPERONE_TOKEN="$H1_TOKEN" -e H1_TOKEN="$H1_TOKEN" machine-e2e bats e2e/lifecycle.bats
+      # HYPERONE_PROJECT and HYPERONE_ACCESS_TOKEN_SECRET required by Docker-Machine
+      # H1_TOKEN (legacy) required by H1-CLI
+      - docker run -e HYPERONE_PROJECT="any" -e HYPERONE_ACCESS_TOKEN_SECRET="$H1_TOKEN" -e H1_TOKEN="$H1_TOKEN" machine-e2e bats e2e/lifecycle.bats
