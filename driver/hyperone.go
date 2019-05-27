@@ -71,19 +71,19 @@ func (d *Driver) GetCreateFlags() []mcnflag.Flag {
 			Value:  defaultType,
 		},
 		mcnflag.StringFlag{
-			EnvVar: "HYPERONE_DIKE_NAME",
+			EnvVar: "HYPERONE_DISK_NAME",
 			Name:   "hyperone-disk-name",
 			Usage:  "HyperOne VM OS Disk Name",
 			Value:  defaultDiskName,
 		},
 		mcnflag.StringFlag{
-			EnvVar: "HYPERONE_DIKE_TYPE",
+			EnvVar: "HYPERONE_DISK_TYPE",
 			Name:   "hyperone-disk-type",
 			Usage:  "HyperOne VM OS Disk Type",
 			Value:  defaultDiskType,
 		},
 		mcnflag.IntFlag{
-			EnvVar: "HYPERONE_DIKE_SIZE",
+			EnvVar: "HYPERONE_DISK_SIZE",
 			Name:   "hyperone-disk-size",
 			Usage:  "HyperOne VM OS Disk Size",
 			Value:  defaultDiskSize,

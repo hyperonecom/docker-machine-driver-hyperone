@@ -63,7 +63,6 @@ To see how to connect your Docker Client to the Docker Engine running on this vi
 Available options:
 
 ```shell
-$ docker-machine create -d hyperone -h
 Usage: docker-machine create [OPTIONS] [arg...]
 
 Create a machine
@@ -82,9 +81,9 @@ Options:
    --engine-registry-mirror [--engine-registry-mirror option --engine-registry-mirror option]		Specify registry mirrors to use [$ENGINE_REGISTRY_MIRROR]
    --engine-storage-driver 										Specify a storage driver to use with the engine
    --hyperone-access-token-secret 									HyperOne Access Token Secret [$HYPERONE_ACCESS_TOKEN_SECRET]
-   --hyperone-disk-name "os-disk"									HyperOne VM OS Disk Name [$HYPERONE_DIKE_NAME]
-   --hyperone-disk-size "20"										HyperOne VM OS Disk Size [$HYPERONE_DIKE_SIZE]
-   --hyperone-disk-type "ssd"										HyperOne VM OS Disk Type [$HYPERONE_DIKE_TYPE]
+   --hyperone-disk-name "os-disk"									HyperOne VM OS Disk Name [$HYPERONE_DISK_NAME]
+   --hyperone-disk-size "20"										HyperOne VM OS Disk Size [$HYPERONE_DISK_SIZE]
+   --hyperone-disk-type "ssd"										HyperOne VM OS Disk Type [$HYPERONE_DISK_TYPE]
    --hyperone-image "debian"										HyperOne Image [$HYPERONE_IMAGE]
    --hyperone-project 											HyperOne Project [$HYPERONE_PROJECT]
    --hyperone-ssh-user "guru"										SSH Username [$HYPERONE_SSH_USER]
@@ -100,7 +99,6 @@ Options:
    --swarm-opt [--swarm-opt option --swarm-opt option]							Define arbitrary flags for Swarm master
    --swarm-strategy "spread"										Define a default scheduling strategy for Swarm
    --tls-san [--tls-san option --tls-san option]							Support extra SANs for TLS certs
-
 ```
 
 ## Development
