@@ -1,8 +1,8 @@
 FROM node:alpine as cli_builder
 RUN apk add --no-cache libstdc++
 RUN wget https://github.com/hyperonecom/h1-cli/archive/develop.tar.gz
-RUN tar xvzf master.tar.gz
-WORKDIR /h1-cli-master
+RUN tar xvzf develop.tar.gz
+WORKDIR /h1-cli-develop
 RUN npm install .
 RUN npm run build
 
