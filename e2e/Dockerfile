@@ -4,7 +4,7 @@ RUN wget https://github.com/hyperonecom/h1-cli/archive/develop.tar.gz
 RUN tar xvzf develop.tar.gz
 WORKDIR /h1-cli-develop
 RUN npm install .
-RUN npx pkg -t "node12-alpine" -o "./dist/h1" "./bin/h1"
+RUN npx pkg -c package.json -t "node12-alpine" -o "./dist/h1" "./bin/h1"
 
 FROM golang:alpine
 # Setup
