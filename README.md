@@ -43,7 +43,7 @@ Official documentation for Docker Machine is available on [website](https://docs
 To create a HyperOne Virtual Machine for Docker purposes just run this command:
 
 ```shell
-$ docker-machine create --driver hyperone --hyperone-token TOKEN --hyperone-project PROJECT vm
+$ docker-machine create --driver hyperone --hyperone-access-token-secret TOKEN --hyperone-project PROJECT vm
 Running pre-create checks...
 Creating machine...
 (vm) Creating HyperOne VM...
@@ -63,7 +63,6 @@ To see how to connect your Docker Client to the Docker Engine running on this vi
 Available options:
 
 ```shell
-$ docker-machine create -d hyperone -h
 Usage: docker-machine create [OPTIONS] [arg...]
 
 Create a machine
@@ -81,13 +80,13 @@ Options:
    --engine-opt [--engine-opt option --engine-opt option]						Specify arbitrary flags to include with the created engine in the form flag=value
    --engine-registry-mirror [--engine-registry-mirror option --engine-registry-mirror option]		Specify registry mirrors to use [$ENGINE_REGISTRY_MIRROR]
    --engine-storage-driver 										Specify a storage driver to use with the engine
-   --hyperone-disk-name "os-disk"									HyperOne VM OS Disk Name [$HYPERONE_DIKE_NAME]
-   --hyperone-disk-size "20"										HyperOne VM OS Disk Size [$HYPERONE_DIKE_SIZE]
-   --hyperone-disk-type "ssd"										HyperOne VM OS Disk Type [$HYPERONE_DIKE_TYPE]
+   --hyperone-access-token-secret 									HyperOne Access Token Secret [$HYPERONE_ACCESS_TOKEN_SECRET]
+   --hyperone-disk-name "os-disk"									HyperOne VM OS Disk Name [$HYPERONE_DISK_NAME]
+   --hyperone-disk-size "20"										HyperOne VM OS Disk Size [$HYPERONE_DISK_SIZE]
+   --hyperone-disk-type "ssd"										HyperOne VM OS Disk Type [$HYPERONE_DISK_TYPE]
    --hyperone-image "debian"										HyperOne Image [$HYPERONE_IMAGE]
    --hyperone-project 											HyperOne Project [$HYPERONE_PROJECT]
    --hyperone-ssh-user "guru"										SSH Username [$HYPERONE_SSH_USER]
-   --hyperone-token 											HyperOne Token [$HYPERONE_TOKEN]
    --hyperone-type "a1.micro"										HyperOne VM Type [$HYPERONE_TYPE]
    --swarm												Configure Machine to join a Swarm cluster
    --swarm-addr 											addr to advertise for Swarm (default: detect and use the machine IP)

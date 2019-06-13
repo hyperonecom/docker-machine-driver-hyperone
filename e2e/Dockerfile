@@ -1,11 +1,18 @@
+FROM node:alpine as cli_builder
+RUN apk add --no-cache libstdc++
+RUN wget https://github.com/hyperonecom/h1-cli/archive/develop.tar.gz
+RUN tar xvzf develop.tar.gz
+WORKDIR /h1-cli-develop
+RUN npm install .
+RUN npx pkg -c package.json -t "node12-alpine" -o "./dist/h1" "./bin/h1"
+
 FROM golang:alpine
 # Setup
-RUN apk add curl bats git make gcc musl-dev findutils grep docker
+COPY --from=cli_builder /h1-cli-develop/dist/h1 /bin/h1
+RUN apk add --no-cache libstdc++ curl bats git make gcc musl-dev findutils grep docker
 RUN base="https://github.com/docker/machine/releases/latest/download" \
 && curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/usr/local/bin/docker-machine \
 && chmod +x /usr/local/bin/docker-machine
-RUN curl -s -L "https://github.com/hyperonecom/h1-cli/releases/latest/download/h1-alpine" -o /bin/h1 \
-&& chmod +x /bin/h1
 # Build
 WORKDIR /src
 ADD ./ /src/

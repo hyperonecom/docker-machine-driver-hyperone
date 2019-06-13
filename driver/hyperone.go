@@ -43,9 +43,9 @@ type Driver struct {
 func (d *Driver) GetCreateFlags() []mcnflag.Flag {
 	return []mcnflag.Flag{
 		mcnflag.StringFlag{
-			EnvVar: "HYPERONE_TOKEN",
-			Name:   "hyperone-token",
-			Usage:  "HyperOne Token",
+			EnvVar: "HYPERONE_ACCESS_TOKEN_SECRET",
+			Name:   "hyperone-access-token-secret",
+			Usage:  "HyperOne Access Token Secret",
 		},
 		mcnflag.StringFlag{
 			EnvVar: "HYPERONE_PROJECT",
@@ -71,19 +71,19 @@ func (d *Driver) GetCreateFlags() []mcnflag.Flag {
 			Value:  defaultType,
 		},
 		mcnflag.StringFlag{
-			EnvVar: "HYPERONE_DIKE_NAME",
+			EnvVar: "HYPERONE_DISK_NAME",
 			Name:   "hyperone-disk-name",
 			Usage:  "HyperOne VM OS Disk Name",
 			Value:  defaultDiskName,
 		},
 		mcnflag.StringFlag{
-			EnvVar: "HYPERONE_DIKE_TYPE",
+			EnvVar: "HYPERONE_DISK_TYPE",
 			Name:   "hyperone-disk-type",
 			Usage:  "HyperOne VM OS Disk Type",
 			Value:  defaultDiskType,
 		},
 		mcnflag.IntFlag{
-			EnvVar: "HYPERONE_DIKE_SIZE",
+			EnvVar: "HYPERONE_DISK_SIZE",
 			Name:   "hyperone-disk-size",
 			Usage:  "HyperOne VM OS Disk Size",
 			Value:  defaultDiskSize,
@@ -97,7 +97,7 @@ func (d *Driver) DriverName() string {
 }
 
 func (d *Driver) SetConfigFromFlags(flags drivers.DriverOptions) error {
-	d.Token = flags.String("hyperone-token")
+	d.Token = flags.String("hyperone-access-token-secret")
 	d.Project = flags.String("hyperone-project")
 	d.Image = flags.String("hyperone-image")
 	d.Type = flags.String("hyperone-type")
@@ -107,7 +107,7 @@ func (d *Driver) SetConfigFromFlags(flags drivers.DriverOptions) error {
 	d.SSHUser = flags.String("hyperone-ssh-user")
 
 	if d.Token == "" {
-		return fmt.Errorf("hyperone driver requires the --hyperone-token option")
+		return fmt.Errorf("hyperone driver requires the --hyperone-access-token-secret option")
 	}
 
 	if d.Project == "" {
