@@ -11,8 +11,9 @@ stages:
 
 jobs:
   include:
-    - stage: build
+    - stage: lint & build
       script:
+      - test -z $(docker run -v $(pwd):/go -it golang:alpine gofmt -s -w  -l .)
       - docker build . -f e2e/Dockerfile -t machine-e2e
 
     - stage: build & test

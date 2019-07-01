@@ -167,7 +167,7 @@ func (d *Driver) Create() error {
 		Username: d.SSHUser,
 		SshKeys:  []string{strings.TrimSpace(publicKey)},
 		Disk: []openapi.VmCreateDisk{
-			openapi.VmCreateDisk{
+			{
 				Name:    d.DiskName,
 				Service: d.DiskType,
 				Size:    float32(d.DiskSize),
