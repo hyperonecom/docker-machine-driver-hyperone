@@ -26,8 +26,8 @@ You can find sources and pre-compiled binaries on the "[Releases](https://github
 Download the binary (this example downloads the binary for darwin amd64):
 
 ```shell
-$ wget https://github.com/hyperonecom/docker-machine-driver-hyperone/releases/download/v0.0.1/docker-machine-driver-hyperone_0.0.1_darwin_amd64.zip
-$ unzip docker-machine-driver-hyperone_0.0.1_darwin_amd64.zip
+$ wget https://github.com/hyperonecom/docker-machine-driver-hyperone/releases/latest/download/docker-machine-driver-hyperone-darwin_amd64.zip
+$ unzip docker-machine-driver-hyperone-darwin_amd64.zip
 ```
 
 Make it executable and copy the binary in a directory accessible on your ```$PATH```:
