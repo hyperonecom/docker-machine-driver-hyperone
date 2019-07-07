@@ -3,13 +3,18 @@
 before:
   hooks:
     # you may remove this if you don't use vgo
-    - go mod download
+    # - go mod download
     # you may remove this if you don't need go generate
     - go generate ./...
 builds:
 -
   env:
     - CGO_ENABLED=0
+    - GO111MODULE=off
+  goos:
+    - linux
+    - darwin
+    - windows
   goarch:
     - amd64
   
@@ -20,6 +25,7 @@ builds:
 
 archives:
   - format: zip
+    name_template: "{{ .ProjectName }}-{{ .Os }}_{{ .Arch }}"
 checksum:
   name_template: 'checksums.txt'
 snapshot:
