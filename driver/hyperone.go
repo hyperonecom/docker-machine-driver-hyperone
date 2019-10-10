@@ -18,7 +18,7 @@ var version = "devel"
 
 const (
 	defaultSSHUser  = "guru"
-	defaultImage    = "debian"
+	defaultImage    = "debian:docker"
 	defaultType     = "a1.micro"
 	defaultDiskName = "os-disk"
 	defaultDiskType = "ssd"
